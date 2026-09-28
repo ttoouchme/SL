@@ -17,7 +17,7 @@ FetchContent_MakeAvailable(SFML)
 FetchContent_Declare(
     ImGui-SFML
     GIT_REPOSITORY https://github.com/SFML/imgui-sfml.git
-    GIT_TAG v2.6.x
+    GIT_TAG v2.6
 )
 FetchContent_MakeAvailable(ImGui-SFML)
 
