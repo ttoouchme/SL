@@ -45,3 +45,8 @@ target_link_libraries(SL PRIVATE
     opengl32
     winmm
 )
+
+# Автоматичне копіювання openal32.dll поруч з exe
+if(EXISTS "${SFML_SOURCE_DIR}/extlibs/bin/x64/openal32.dll")
+    file(COPY "${SFML_SOURCE_DIR}/extlibs/bin/x64/openal32.dll" DESTINATION ${CMAKE_BINARY_DIR}/Release)
+endif()
