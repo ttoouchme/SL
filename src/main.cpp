@@ -100,12 +100,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
         ImGui::SetNextWindowSize(ImVec2(950, 600));
         ImGui::Begin("MainPanel", nullptr, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 
-        // Header
-        ImGui::PushFont(ImGui::GetFont());
         ImGui::TextColored(ImVec4(0.10f, 0.90f, 0.60f, 1.0f), "S L");
         ImGui::SameLine();
         ImGui::TextColored(ImVec4(0.5f, 0.5f, 0.6f, 1.0f), " // SOUNDPAD v1.0 [Author: touchme]");
-        ImGui::PopFont();
         
         ImGui::Spacing();
         if (ImGui::Button("+ ADD NEW SOUND SLOT", ImVec2(200, 35))) {
@@ -116,7 +113,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
         ImGui::Separator();
         ImGui::Spacing();
 
-        // Sounds List Container
         ImGui::BeginChild("SoundListChild", ImVec2(0, -10), true, ImGuiWindowFlags_AlwaysVerticalScrollbar);
         
         std::lock_guard<std::mutex> lock(soundsMutex);
@@ -138,7 +134,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
                 if (ImGui::Button("LOAD")) {
                     std::string filePath(s->path);
-                    // Асинхронне завантаження в фоні, щоб не морозити вікно
                     std::thread([s, filePath]() {
                         auto tempMusic = std::make_unique<sf::Music>();
                         if (tempMusic->openFromFile(filePath)) {
@@ -178,8 +173,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
                 }
                 ImGui::SameLine();
 
-                PushStyleColor(ImGuiCol_Button, ImVec4(0.6f, 0.15f, 0.15f, 1.00f));
-                PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.8f, 0.2f, 0.2f, 1.00f));
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.6f, 0.15f, 0.15f, 1.00f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.8f, 0.2f, 0.2f, 1.00f));
                 if (ImGui::Button("DELETE")) {
                     sounds.erase(sounds.begin() + i);
                     ImGui::PopStyleColor(2);
