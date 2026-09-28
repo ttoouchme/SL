@@ -7,12 +7,25 @@ set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 
 include(FetchContent)
 
+# 1. Завантажуємо SFML
 FetchContent_Declare(
     SFML
     GIT_REPOSITORY https://github.com/SFML/SFML.git
     GIT_TAG 2.6.1
 )
 FetchContent_MakeAvailable(SFML)
+
+# 2. Завантажуємо оригінальний ImGui
+FetchContent_Declare(
+    ImGui
+    GIT_REPOSITORY https://github.com/ocornut/imgui.git
+    GIT_TAG v1.89.9
+)
+FetchContent_MakeAvailable(ImGui)
+
+# 3. Налаштовуємо та завантажуємо ImGui-SFML
+set(IMGUI_DIR ${imgui_SOURCE_DIR} CACHE PATH "" FORCE)
+set(IMGUI_SFML_FIND_SFML OFF CACHE BOOL "" FORCE) # Вимикаємо пошук системного SFML
 
 FetchContent_Declare(
     ImGui-SFML
